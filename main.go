@@ -67,9 +67,13 @@ func serializeEblock(hexString string) (jsonResp string, err error) {
 	}
 
 	eb := entryBlock.NewEBlock()
-	err = eb.UnmarshalBinary(data)
+	newdata, err := eb.UnmarshalBinaryData(data)
 	if err != nil {
 		return "", err
+	}
+
+	if len(newdata) > 0 {
+		return "", fmt.Errorf("%d bytes remain, extra hex characters were given", len(newdata))
 	}
 
 	if Indent {
@@ -93,9 +97,13 @@ func serializeDblock(hexString string) (jsonResp string, err error) {
 	}
 
 	db := new(directoryBlock.DirectoryBlock)
-	err = db.UnmarshalBinary(data)
+	newdata, err := db.UnmarshalBinaryData(data)
 	if err != nil {
 		return "", err
+	}
+
+	if len(newdata) > 0 {
+		return "", fmt.Errorf("%d bytes remain, extra hex characters were given", len(newdata))
 	}
 
 	if Indent {
