@@ -47,7 +47,7 @@ func main() {
 			fmt.Println(jsonStr)
 		}
 	case "dblock":
-		jsonStr, err := serializeEblock(os.Args[1])
+		jsonStr, err := serializeDblock(os.Args[1])
 		if err != nil {
 			fmt.Println(err)
 		} else {
